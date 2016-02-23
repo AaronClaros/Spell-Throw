@@ -2,14 +2,26 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public enum Action { affect, cover, launch, expand, compress }
+public enum ViewDirection { up, down, left, right }
 
 public class SpellManager : MonoBehaviour {
+	public static SpellManager instance = null;
 
     public List<GameObject> enemiesList;
 
     public Transform actualTarget;
     public string targetName;
+
+	public ViewDirection viewRef;
+
+	void Awake(){
+		if (instance == null)
+			instance = this;
+		else if (instance != null) {
+			Destroy(this);
+		}
+	}
+
 	// Use this for initialization
 	void Start () {
         enemiesList = FindObjectOfType<GameManager>().enemiesList;
@@ -20,7 +32,6 @@ public class SpellManager : MonoBehaviour {
         if (enemiesList == null | enemiesList.Count==0) {
             enemiesList = FindObjectOfType<GameManager>().enemiesList;
         }
-
 
         float hAxis = Input.GetAxis("Horizontal2");
         float vAxis = Input.GetAxis("Vertical2");
