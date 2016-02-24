@@ -3,7 +3,6 @@ using System.Collections;
 
 	public enum LookRef { left, right};
 	public class PlayerMovement : MonoBehaviour {
-		[HideInInspector]
 		public static PlayerMovement instance = null;
 
 		public float playerScale = 1f;
@@ -29,10 +28,10 @@ using System.Collections;
 
 		//Singlenton pattern
 		void awake(){
-			if (instance == null)
-				instance = this;
-			else if (instance != null)
-				Destroy (this);
+            if (instance == null)
+                instance = this;
+            else if (instance != this)
+                Destroy(gameObject);		
 		}
 
 		// Use this for initialization
@@ -46,7 +45,7 @@ using System.Collections;
 		// Update is called once per frame
 		void Update () {
 
-			spelling_flag = paRef.doingRitual;
+			//spelling_flag = paRef.doingRitual;
 
 			//moving player
 			hAxis = Input.GetAxis("Horizontal");

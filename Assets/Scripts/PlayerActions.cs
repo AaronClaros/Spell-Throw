@@ -38,7 +38,7 @@ using UnityEngine.UI;
 		// Update is called once per frame
 		void Update () {
 			//showing text when spelling
-			doingRitual = Input.GetButton("Fire1");
+			doingRitual = FindObjectOfType<PlayerMovement>().spelling_flag;
 			if (doingRitual) {
 				anim.SetBool ("spelling", true);
 				//spellCanvas.position = transform.position;
@@ -54,7 +54,9 @@ using UnityEngine.UI;
 			}
 			//Changing canvas text
 			if (doingRitual) {
-				sText = sText + "" + Input.inputString;
+                if (Input.inputString != " ") {
+                    sText = sText + "" + Input.inputString;
+                }
 				CompareText();
 				//Debug.Log ("Comparing");
 			} else {

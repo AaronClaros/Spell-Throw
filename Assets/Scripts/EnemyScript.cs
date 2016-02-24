@@ -56,7 +56,7 @@ using UnityEngine.UI;
 		
 		// Update is called once per frame
 		void Update () {
-			if (being_spelling) {
+			if (isPlayerTarget() ) {
 				//Debug.Log ("hOI, am "+name+" you touch me?");
 				invokeCircle.SetActive(true);
 			} else {
@@ -179,6 +179,10 @@ using UnityEngine.UI;
 
         public void SetColorSprite(Color c) {
             this.GetComponent<SpriteRenderer>().color = c;
+        }
+
+        public bool isPlayerTarget() {
+            return SpellManager.instance.actualTarget == this.transform;
         }
 	}
 
