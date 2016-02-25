@@ -18,10 +18,10 @@ public class SpellSpawner : MonoBehaviour {
         var playerSpelling = plMoveRef.spelling_flag;
         target = FindObjectOfType<SpellManager>().actualTarget;
         if (playerSpelling) {
-            if (Input.anyKey) {
-                if (Input.inputString != " ") {
-                    Debug.Log(target.GetComponent<EnemyScript>().eName);
-                    StartCoroutine(LaunchSpell(0.5f));
+            if (Input.anyKeyDown) {
+                if (!Input.GetKeyDown(KeyCode.Space)) {
+                    Debug.Log("shooting spells");
+                    StartCoroutine(LaunchSpell(0.0f));
 
                 }
             }

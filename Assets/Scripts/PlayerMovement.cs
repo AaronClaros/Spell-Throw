@@ -56,11 +56,9 @@ using System.Collections;
 					transform.position = new Vector2 (transform.position.x + (speed * Time.deltaTime) * hAxis, transform.position.y);
 					if (hAxis > 0f) {
 						lRef = LookRef.right;
-						SpellManager.instance.viewRef = ViewDirection.right;
 					}
 					if (hAxis < 0f) {
 						lRef = LookRef.left;
-						SpellManager.instance.viewRef = ViewDirection.left;
 					}
 					anim.SetBool("walking", true);
 				} 

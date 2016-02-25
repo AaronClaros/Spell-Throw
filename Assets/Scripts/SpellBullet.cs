@@ -9,7 +9,6 @@ public class SpellBullet : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        target = FindObjectOfType<SpellManager>().transform;
 	}
 
     void Update()
@@ -17,14 +16,18 @@ public class SpellBullet : MonoBehaviour {
         if (target != null)
         {
             //transform.LookAt(target);
-            transform.Translate(target.position*speed*Time.deltaTime);
+            transform.position = Vector2.Lerp(transform.position, new Vector2(target.position.x, target.position.y-0.2f), Time.deltaTime * speed);
+            /*
             Debug.Log("Going to: " + target.position);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(target.position - transform.position), 2 * Time.deltaTime);
+            //move towards the player
+            transform.position += transform.forward * speed * Time.deltaTime;*/
         }
     }
 
     void OnCollisionEnter2D(Collision2D other)
     {
         Debug.Log("enemy damaged");
-        gameObject.SetActive(false);
+        this.gameObject.SetActive(false);
     }
 }

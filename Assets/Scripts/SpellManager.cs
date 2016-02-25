@@ -14,7 +14,7 @@ public class SpellManager : MonoBehaviour {
 
     private Transform areaTargetRef;
 
-    List<GameObject> enemiesList = new List<GameObject>();
+    public List<GameObject> enemiesList = new List<GameObject>();
 
 
 	void Awake(){
@@ -32,23 +32,26 @@ public class SpellManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        /*if (enemiesList == null | enemiesList.Count==0) {
-            actualTarget = GetClosestEnemy(enemiesList);
-        }*/
 
         float hAxis = Input.GetAxis("Horizontal");
         float vAxis = Input.GetAxis("Vertical");
         if (hAxis != 0) {
-            if (hAxis < 0 & viewRef == ViewDirection.right){
-                enemiesList = null;
-                areaTargetRef.localScale = new Vector2(-1f, 1f);
+            if (hAxis < -0.1f && viewRef == ViewDirection.right){
+                viewRef = ViewDirection.left;
+                //enemiesList = new List<GameObject>();
+                Debug.Log("looking for left side enemies");
+                //areaTargetRef.localScale = new Vector2(-1f, 1f);
+                actualTarget = GetClosestEnemy(enemiesList);
             }
-            if (hAxis > 0 & viewRef == ViewDirection.left)
+            if (hAxis > 0.1f && viewRef == ViewDirection.left)
             {
-                enemiesList = null;
-                areaTargetRef.localScale = new Vector2(1f, 1f);
+                viewRef = ViewDirection.right;
+                Debug.Log("looking for right side enemies");
+                //enemiesList = new List<GameObject>();
+                //areaTargetRef.localScale = new Vector2(1f, 1f);
             }
             actualTarget = GetClosestEnemy(enemiesList);
+
             if (actualTarget != null) {
                 targetName = actualTarget.GetComponent<EnemyScript>().eName;
             }
@@ -67,15 +70,15 @@ public class SpellManager : MonoBehaviour {
  
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (enemiesList != null) {
-            if (other.tag == "Enemy")
+        Debug.Log(other.name);
+        if (other.tag == "Enemy")
+        {
+            if (!enemiesList.Contains(other.gameObject))
             {
-                if (!enemiesList.Contains(other.gameObject))
-                {
-                    enemiesList.Add(other.gameObject);
-                }
+                enemiesList.Add(other.gameObject);
             }
         }
+        
     }
 
     void OnTriggerExit2D(Collider2D other)
