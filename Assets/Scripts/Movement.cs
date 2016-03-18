@@ -20,7 +20,6 @@ public class Movement : MonoBehaviour {
 	void MoveTo(Vector2 direcction){
 		transform.position = new Vector2 (transform.position.x + (_Speed * Time.deltaTime) * direcction.x, 
 		                                  transform.position.y + (_Speed * Time.deltaTime) * direcction.y);
-
 	}
 
 	void Update(){
